@@ -29,7 +29,7 @@ const settings = {
   };
 
   const folders = {
-    backup: path.resolve('./backup')
+    backup: path.resolve('./.backup')
   };
 
   Promise.resolve(makeBackup())
