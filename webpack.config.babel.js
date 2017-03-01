@@ -19,7 +19,7 @@ module.exports = {
           presets: [
             ['env', {
               modules: false,
-                targets: {
+              targets: {
                 browsers: [
                   'last 2 versions'
                 ],

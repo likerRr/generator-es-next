@@ -14,14 +14,23 @@ Modern, ready to use, setup-free ES6 module boilerplate for browser.
 Fill in configuration fields in `install` and run:
 
 ```
+$ git clone https://github.com/likerRr/es6-module-boilerplate
+$ mv es6-module-boilerplate your_module_name
+$ git remote rename boilerplate
+$ git remote add origin https://github.com/your_name/your_module_name
+
 # for linux users
 $ ./install
 
 # for others
 $ node install
+
+# finallize first run
+$ npm test
+$ git commit -m "initial"
+# $ git push
 ```
 
->
 ```javascript
 // example config
 const settings = {
