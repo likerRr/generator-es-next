@@ -34,9 +34,12 @@ Fill in configuration fields in `install` and run:
   $ npm test
   $ git add .
   $ git commit -m "initial"
-  # track remote branch
-  $ git branch -u origin/master
+  # if remote branch exists then get it and track it
+    $ git fetch
+    $ git branch -u origin/master
   # $ git push
+  # if remote branch does NOT exist then specify it with the first push
+  # $ git push -u origin master
 ```
 
 ```javascript
