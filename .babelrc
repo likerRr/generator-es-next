@@ -1,8 +1,30 @@
 {
-  "presets": [["env", {
-    "targets": {
-      "browsers": ["last 2 versions"],
-      "node": 6.9
+  "presets": [
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions"
+          ],
+          "node": 6.9
+        }
+      }
+    ]
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        [
+          "istanbul",
+          {
+            "useInlineSourceMaps": false,
+            "exclude": [
+              "test.js"
+            ]
+          }
+        ]
+      ]
     }
-  }]]
+  }
 }
