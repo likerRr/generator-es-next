@@ -9,7 +9,7 @@ Modern, ready to use, setup-free ES6 module boilerplate for browser.
 * Linting with `XO`
 * Continuous integration with `Travis`
 * Code coverage and online reports via `codecov.io`
-* Dependencies info by David
+* Dependencies info by `David`
 
 ## Install
 
@@ -82,7 +82,7 @@ Service that creates code coverage reports and provides statistics for your app.
 
 #### Setup
 
-Go to [codecov](https://codecov.io) and authorize your app. Now every travis build a report will be created.
+Go to [codecov](https://codecov.io) and authorize your app. Now after every travis build a report will be created.
 
 In order to use  reports manually (without help of travis), use `npm run coverage` to generate report 
 and `npm run coverage:report -- -t :repository-token` to upload it. Find `:repository-token` on the project's 
