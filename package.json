@@ -15,6 +15,7 @@
   "scripts": {
     "build": "npm run lint && webpack -p",
     "coverage": "nyc report --reporter=text-lcov",
+    "coverage:report": "npm run coverage | codecov",
     "lint": "xo",
     "start": "webpack --watch",
     "test": "nyc ava",
@@ -30,11 +31,12 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "ava": "^0.17.0",
-    "babel-loader": "6.2.10",
+    "ava": "^0.18.2",
+    "babel-loader": "^6.4.0",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-preset-env": "^1.1.8",
-    "babel-register": "6.22.0",
+    "babel-register": "^6.23.0",
+    "codecov": "^1.0.1",
     "nyc": "^10.1.2",
     "webpack": "2.2.1",
     "xo": "^0.17.0"
