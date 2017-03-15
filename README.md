@@ -10,6 +10,7 @@ Modern, ready to use, setup-free ES6 module boilerplate for browser.
 * Continuous integration with `Travis`
 * Code coverage and online reports via `codecov.io`
 * Dependencies info by `David`
+* [Yarn](https://yarnpkg.com/en/) support
 
 ## Install
 
