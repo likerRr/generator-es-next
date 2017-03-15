@@ -4,11 +4,7 @@
   "description": "<%= moduleDescription %>",
   "license": "MIT",
   "repository": "<%= githubUsername %>/<%= moduleName %>",
-  "author": {
-    "name": "<%= name %>",
-    "email": "<%= email %>",
-    "url": "<%= website %>"
-  },
+  "author": "<%= name %> <<%= email %>> (<%= website %>)",
   "engines": {
     "node": ">=6"
   },
@@ -34,12 +30,12 @@
     "ava": "^0.18.2",
     "babel-loader": "^6.4.0",
     "babel-plugin-istanbul": "^4.0.0",
-    "babel-preset-env": "^1.1.8",
-    "babel-register": "^6.23.0",
-    "codecov": "^1.0.1",
+    "babel-preset-env": "^1.2.1",
+    "babel-register": "^6.24.0",
+    "codecov": "^2.0.1",
     "nyc": "^10.1.2",
     "webpack": "2.2.1",
-    "xo": "^0.17.0"
+    "xo": "^0.17.1"
   },
   "xo": {
     "esnext": true,
