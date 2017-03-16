@@ -16,7 +16,7 @@ Modern, ready to use, setup-free ES6 module boilerplate for browser.
 
 Clone and setup repository first
 
-```
+```bash
 $ git clone https://github.com/likerRr/es6-module-boilerplate your_module_name
 $ cd your_module_name
 $ rm -rf .git
@@ -26,14 +26,14 @@ $ git remote add origin https://github.com/your_name/your_module_name
 
 Fill in configuration fields in `install` and run:
 
-```
+```bash
 # for linux users
   $ ./install
 
 # for others
   $ node install
 
-# finallize first run
+# finalize first run
   $ npm test
   $ git add .
   $ git commit -m "initial"

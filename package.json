@@ -8,6 +8,7 @@
   "engines": {
     "node": ">=6"
   },
+  "man": "./README.md",
   "scripts": {
     "build": "npm run lint && webpack -p",
     "coverage": "nyc report --reporter=text-lcov",
