@@ -1,12 +1,11 @@
-#!/usr/bin/env node
-
 const fs = require('fs');
 const path = require('path');
 const spawn = require('child_process').spawn;
+const detectInstalled = require('detect-installed');
 
 // ----------------- Configuration area --------------------
 
-const settings = {
+const defaults = {
   name: '',
   email: '',
   website: '',
@@ -19,7 +18,8 @@ const settings = {
 
 // ---------------------------------------------------------
 
-{
+module.exports = options => {
+  const settings = Object.assign({}, defaults, options);
   const files = {
     license: path.resolve('./LICENSE'),
     package: path.resolve('./package.json'),
@@ -99,7 +99,8 @@ const settings = {
   }
 
   function installDependencies() {
-    const ls = spawn('npm', ['install'], {
+    const pkgManager = detectInstalled('yarn') ? 'yarn' : 'npm';
+    const ls = spawn(pkgManager, ['install'], {
       shell: true
     });
 
@@ -119,4 +120,4 @@ const settings = {
       throw err
     });
   }
-}
+};
