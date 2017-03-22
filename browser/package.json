@@ -1,10 +1,10 @@
 {
-  "name": "es6-module-boilerplate",
-  "version": "1.0.0-beta.2",
-  "description": "ES6 module generator for browser and nodejs",
+  "name": "<%= moduleName %>",
+  "version": "0.0.1",
+  "description": "<%= moduleDescription %>",
   "license": "MIT",
-  "repository": "likerRr/es6-module-boilerplate",
-  "author": "Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerRr.ru)",
+  "repository": "<%= githubUsername %>/<%= moduleName %>",
+  "author": "<%= name %> <<%= email %>> (<%= website %>)",
   "engines": {
     "node": ">=6"
   },
@@ -31,17 +31,7 @@
     "node",
     "starter"
   ],
-  "dependencies": {
-    "detect-installed": "^2.0.4",
-    "exec-series": "^1.0.3",
-    "gitfig": "^1.0.1",
-    "inquirer": "^3.0.6",
-    "inquirer-questions-counter": "^1.0.1",
-    "p-filter": "^1.0.0",
-    "p-map": "^1.1.1",
-    "vorpal": "^1.11.4",
-    "which": "^1.2.12"
-  },
+  "dependencies": {},
   "devDependencies": {
     "ava": "^0.18.2",
     "babel-loader": "^6.4.0",

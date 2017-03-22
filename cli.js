@@ -40,6 +40,8 @@ function humanize(str) {
     .join(' ');
 }
 
+let prompt;
+
 const askName = {
   type: 'input',
   name: 'name',
@@ -94,10 +96,18 @@ const askGHUsername = {
   message: `Username at GitHub.com`,
 };
 
+const askModuleType = {
+  type: 'list',
+  name: 'moduleType',
+  message: `Which module type to generate?`,
+  choices: ['browser', 'node'],
+  default: 0
+};
+
 const askPkgManager = {
   type: 'list',
   name: 'userName',
-  message: `Do you have yarn installed globally`,
+  message: `Do you have yarn installed globally?`,
   choices: ['npm', 'yarn'],
   default: 0
 };
@@ -105,7 +115,8 @@ const askPkgManager = {
 // TODO human readable module name
 
 const allQuestions = [
-  askPkgManager,
+  // askPkgManager,
+  // askModuleType,
   askName,
   askEmail,
   askSite,
@@ -116,17 +127,26 @@ const allQuestions = [
   askGHUsername
 ];
 
-inquirer.prompt(addCounter(allQuestions)).then(answers => {
-  console.log(JSON.stringify(answers, null, '  '));
+prompt = inquirer.prompt(addCounter(allQuestions));
 
-  installScript({
-    name: answers.name,
-    email: answers.email,
-    website: answers.site,
+prompt.then(answers => installScript({
+  name: answers.name,
+  email: answers.email,
+  website: answers.site,
 
-    moduleName: answers.moduleName,
-    camelModuleName: answers.camelModuleName,
-    moduleDescription: answers.description,
-    githubUsername: answers.userName,
-  });
-});
+  moduleName: answers.moduleName,
+  camelModuleName: answers.camelModuleName,
+  moduleDescription: answers.description,
+  githubUsername: answers.userName,
+}))
+.then(() => console.log('Success'))
+.catch(err => console.error(err));
+
+// setTimeout(() => prompt.ui.rl.emit('line', 'hello'), 2000)
+// // console.log(prompt);
+//
+// prompt.ui.process.subscribe(
+//   ({name, answer}, b) => {
+//     console.log(b);
+//   }
+// );
