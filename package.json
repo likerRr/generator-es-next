@@ -1,5 +1,5 @@
 {
-  "name": "es6-module-boilerplate",
+  "name": "generator-es6-module-boilerplate",
   "version": "1.0.0-beta.2",
   "description": "ES6 module generator for browser and nodejs",
   "license": "MIT",
@@ -8,7 +8,6 @@
   "engines": {
     "node": ">=6"
   },
-  "bin": "./cli.js",
   "man": "./README.md",
   "scripts": {
     "build": "npm run lint && webpack -p",
@@ -20,7 +19,7 @@
     "test:watch": "npm run test -- -watch"
   },
   "files": [
-    "index.js"
+    "generators"
   ],
   "browser": "dist/bundle.js",
   "main": "index.js",
@@ -32,51 +31,14 @@
     "starter"
   ],
   "dependencies": {
-    "detect-installed": "^2.0.4",
-    "exec-series": "^1.0.3",
-    "gitfig": "^1.0.1",
-    "inquirer": "^3.0.6",
-    "inquirer-questions-counter": "^1.0.1",
-    "p-filter": "^1.0.0",
-    "p-map": "^1.1.1",
-    "vorpal": "^1.11.4",
-    "which": "^1.2.12"
+    "yeoman-generator": "^1.1.1"
   },
   "devDependencies": {
-    "ava": "^0.18.2",
-    "babel-loader": "^6.4.0",
-    "babel-plugin-istanbul": "^4.0.0",
-    "babel-preset-env": "^1.2.1",
-    "babel-register": "^6.24.0",
-    "codecov": "^2.0.1",
-    "nyc": "^10.1.2",
-    "webpack": "2.2.1",
     "xo": "^0.17.1"
   },
   "xo": {
     "esnext": true,
     "semicolon": true,
     "space": 2
-  },
-  "ava": {
-    "require": [
-      "babel-register"
-    ]
-  },
-  "nyc": {
-    "include": [
-      "test.js"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "lines": 100,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "check-coverage": true,
-    "sourceMap": false,
-    "instrument": false
   }
 }
