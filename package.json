@@ -31,6 +31,7 @@
     "starter"
   ],
   "dependencies": {
+    "which": "^1.2.14",
     "yeoman-generator": "^1.1.1"
   },
   "devDependencies": {
@@ -40,5 +41,6 @@
     "esnext": true,
     "semicolon": true,
     "space": 2
-  }
+  },
+  "preferGlobal": true
 }

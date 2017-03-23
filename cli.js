@@ -93,7 +93,7 @@ const askDescription = {
 const askGHUsername = {
   type: 'input',
   name: 'userName',
-  message: `Username at GitHub.com`,
+  message: `What's your Github username`,
 };
 
 const askModuleType = {
