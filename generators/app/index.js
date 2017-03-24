@@ -7,7 +7,7 @@ const which = require('which');
 const OPTIONS = {
   // COMMIT: 'commit',
   // INIT_GIT: 'git',
-  // LATEST: 'latest',
+  LATEST: 'latest',
   // PUSH: 'push',
   YES: 'yes',
   YES_DEFAULT: 'yes-defaults'
@@ -75,12 +75,12 @@ module.exports = class extends Generator {
     //   type: Boolean
     // });
 
-    // this.option(OPTIONS.LATEST, {
-    //   alias: 'l',
-    //   default: false,
-    //   description: `Install latest versions of dependencies. (!) Correct work is not guaranteed`,
-    //   type: Boolean
-    // });
+    this.option(OPTIONS.LATEST, {
+      alias: 'l',
+      default: false,
+      description: `Install latest versions of dependencies. (!) Correct work is not guaranteed`,
+      type: Boolean
+    });
 
     this.storedPrompt = this.config.get('promptValues') || {};
     this.defaultAnswers = this._getDefaultAnswers(this.storedPrompt);
@@ -130,7 +130,9 @@ module.exports = class extends Generator {
 
   // Lifecycle hook
   install() {
-    which.sync('yarn') ? this.yarnInstall() : this.npmInstall();
+    this._installDependencies({
+      isYarn: which.sync('yarn')
+    });
 
     // if git is available
       // init git
@@ -144,6 +146,33 @@ module.exports = class extends Generator {
   // Lifecycle hook
   // end() {}
 
+  /**
+   *
+   * @param isYarn
+   * @private
+   */
+  _installDependencies({isYarn}) {
+    let dependencies = [];
+    let devDependencies = [];
+
+    if (this.options[OPTIONS.LATEST]) {
+      const packageJson = require(this.templatePath('package.json'));
+      const setLatest = dep => `${dep}@latest`;
+
+      dependencies = Object.keys(packageJson.dependencies).map(setLatest);
+      devDependencies = Object.keys(packageJson.devDependencies).map(setLatest);
+    }
+
+    isYarn
+      ? this.yarnInstall(dependencies)
+      : this.npmInstall(dependencies);
+
+    if (devDependencies.length > 0) {
+      isYarn
+        ? this.yarnInstall(devDependencies, {dev: true})
+        : this.npmInstall(devDependencies, {'save-dev': true});
+    }
+  }
 
   /**
    * Returns answers either after prompting or on
