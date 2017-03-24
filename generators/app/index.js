@@ -121,7 +121,6 @@ module.exports = class extends Generator {
     this._fastCopy('README.md', this.answers);
     this._fastCopy('test.js');
     this._fastCopy('webpack.config.babel.js');
-    // TODO do not copy if want fresh dependencies
     this._fastCopy('yarn.lock');
   }
 
