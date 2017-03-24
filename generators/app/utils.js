@@ -1,6 +1,7 @@
 module.exports = {
   camelize,
   humanize
+  // combineFilters
 };
 
 /**
@@ -28,3 +29,13 @@ function humanize(str) {
     .map(txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
     .join(' ');
 }
+
+/*
+function combineFilters(filters) {
+  if (!Array.isArray(filters)) {
+    filters = [filters];
+  }
+
+  return val => (filters.length > 0) ? filters.reduce((prev, cur) => cur(prev), filters[0](val)) : val
+}
+*/

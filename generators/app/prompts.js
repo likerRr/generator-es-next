@@ -1,69 +1,86 @@
-const path = require('path');
 const utils = require('./utils');
+const trimFilter = (val) => val.trim();
 
-module.exports = (generator) => {
+module.exports = generator => {
   const prompts = {};
 
   prompts.askName = {
-    type: 'input',
+    default: generator.defaultAnswers.name,
+    filter: trimFilter,
     name: 'name',
     message: `What's your name?`,
-    default: generator.defaultAnswers.name,
-    store: true
+    store: true,
+    type: 'input'
   };
 
   prompts.askEmail = {
-    type: 'input',
+    default: generator.defaultAnswers.email,
+    filter: trimFilter,
     name: 'email',
     message: `What's your email?`,
-    default: generator.defaultAnswers.email,
-    store: true
+    store: true,
+    type: 'input'
   };
 
   prompts.askSite = {
-    type: 'input',
-    name: 'website',
-    message: `What's your web site?`,
     default: generator.defaultAnswers.website,
-    store: true
+    filter: trimFilter,
+    message: `What's your web site?`,
+    name: 'website',
+    store: true,
+    type: 'input'
   };
 
   prompts.askModuleName = {
-    type: 'input',
-    name: 'moduleName',
+    default: generator.defaultAnswers.moduleName,
+    filter: trimFilter,
     message: `What's the module name?`,
-    default: generator.defaultAnswers.moduleName
+    name: 'moduleName',
+    type: 'input'
   };
 
   prompts.askCamelModuleName = {
-    type: 'input',
-    name: 'camelModuleName',
+    default: session => utils.camelize(session.moduleName),
+    filter: trimFilter,
     message: `What's a camelCase for module name?`,
-    default: session => utils.camelize(session.moduleName)
+    name: 'camelModuleName',
+    type: 'input'
   };
 
   // TODO now is not used, put somewhere in README.md
   prompts.askHumanModuleName = {
-    type: 'input',
-    name: 'humanModuleName',
+    default: session => utils.humanize(session.moduleName),
+    filter: trimFilter,
     message: `What's the human readable name of module?`,
-    default: session => utils.humanize(session.moduleName)
+    name: 'humanModuleName',
+    type: 'input'
   };
 
   prompts.askDescription = {
-    type: 'input',
-    name: 'moduleDescription',
+    default: generator.defaultAnswers.moduleDescription,
+    filter: trimFilter,
     message: `Few words about your module`,
-    default: generator.defaultAnswers.moduleDescription
+    name: 'moduleDescription',
+    store: true,
+    type: 'input'
   };
 
   prompts.askGHUsername = {
-    type: 'input',
-    name: 'githubUsername',
-    message: `What's your Github username`,
     default: generator.defaultAnswers.githubUsername,
-    store: true
+    filter: trimFilter,
+    message: `What's your Github username`,
+    name: 'githubUsername',
+    store: true,
+    type: 'input'
   };
+
+  // prompts.askGitRemote = {
+  //   default: session => session.githubUsername && `https://github.com/${session.githubUsername}/${session.moduleName}`,
+  //   filter: trimFilter,
+  //   message: `Git remote url`,
+  //   name: 'gitRemote',
+  //   type: 'input'
+  // };
 
   prompts.ALL = [
     prompts.askName,
@@ -74,6 +91,7 @@ module.exports = (generator) => {
     prompts.askHumanModuleName,
     prompts.askDescription,
     prompts.askGHUsername
+    // prompts.askGitRemote
   ];
 
   return prompts;
