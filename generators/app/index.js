@@ -6,7 +6,7 @@ const which = require('which');
 
 const OPTIONS = {
   // COMMIT: 'commit',
-  // INIT_GIT: 'git',
+  INIT_GIT: 'git',
   LATEST: 'latest',
   // PUSH: 'push',
   YES: 'yes',
@@ -54,12 +54,12 @@ module.exports = class extends Generator {
       type: Boolean
     });
 
-    // this.option(OPTIONS.INIT_GIT, {
-    //   alias: 'g',
-    //   default: true,
-    //   description: `Init git repository`,
-    //   type: Boolean
-    // });
+    this.option(OPTIONS.INIT_GIT, {
+      alias: 'g',
+      default: true,
+      description: `Init git repository`,
+      type: Boolean
+    });
 
     // this.option(OPTIONS.COMMIT, {
     //   alias: 'c',
@@ -133,6 +133,11 @@ module.exports = class extends Generator {
       isYarn: which.sync('yarn')
     });
 
+    if (which.sync('git')) {
+      if (this.options[OPTIONS.INIT_GIT]) {
+        this.spawnCommand('git', ['init']);
+      }
+    }
     // if git is available
       // init git
 
