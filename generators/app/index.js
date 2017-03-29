@@ -5,10 +5,10 @@ const prompts = require('./prompts');
 const which = require('which');
 
 const OPTIONS = {
-  // COMMIT: 'commit',
+  COMMIT: 'commit',
   INIT_GIT: 'git',
   LATEST: 'latest',
-  // PUSH: 'push',
+  PUSH: 'push',
   YES: 'yes',
   YES_DEFAULT: 'yes-defaults'
 };
@@ -36,6 +36,13 @@ module.exports = class extends Generator {
   //     "xo": "^0.17.1"
   //   }
   // }
+  get _remoteUrl() {
+    if (this.answers.githubUsername && this.answers.moduleName) {
+      return `https://github.com/${this.answers.githubUsername}/${this.answers.moduleName}`;
+    }
+
+    return null;
+  }
 
   constructor(args, opts) {
     super(args, opts);
@@ -61,19 +68,19 @@ module.exports = class extends Generator {
       type: Boolean
     });
 
-    // this.option(OPTIONS.COMMIT, {
-    //   alias: 'c',
-    //   default: true,
-    //   description: `Make initial commit`,
-    //   type: Boolean
-    // });
+    this.option(OPTIONS.COMMIT, {
+      alias: 'c',
+      default: true,
+      description: `Make initial commit`,
+      type: Boolean
+    });
 
-    // this.option(OPTIONS.PUSH, {
-    //   alias: 'p',
-    //   default: false,
-    //   description: `Push commit`,
-    //   type: Boolean
-    // });
+    this.option(OPTIONS.PUSH, {
+      alias: 'p',
+      default: false,
+      description: `Push commit`,
+      type: Boolean
+    });
 
     this.option(OPTIONS.LATEST, {
       alias: 'l',
@@ -135,16 +142,28 @@ module.exports = class extends Generator {
 
     if (which.sync('git')) {
       if (this.options[OPTIONS.INIT_GIT]) {
-        this.spawnCommand('git', ['init']);
+        this.spawnCommandSync('git', ['init']);
+
+        if (this.options[OPTIONS.COMMIT]) {
+          this.spawnCommandSync('git', ['add', '.']);
+          this.spawnCommandSync('git', ['commit', '-m', 'Initial']);
+
+          const githubRepo = this._remoteUrl;
+
+          if (this.options[OPTIONS.PUSH] && githubRepo) {
+            this.spawnCommandSync('git', ['remote', 'add', 'origin', githubRepo]);
+            this.spawnCommand('git', ['push', '-u', 'origin', 'master']);
+          }
+        }
       }
     }
     // if git is available
-      // init git
+    // init git
 
-      // make commit
+    // make commit
 
-      // if github repo exists && user agreed
-        // push
+    // if github repo exists && user agreed
+    // push
   }
 
   // Lifecycle hook
