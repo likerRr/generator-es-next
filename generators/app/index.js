@@ -3,12 +3,13 @@ const path = require('path');
 const utils = require('./utils');
 const prompts = require('./prompts');
 const which = require('which');
+const https = require('https');
 
 const OPTIONS = {
-  COMMIT: 'commit',
-  INIT_GIT: 'git',
+  // COMMIT: 'commit',
+  GIT_INIT: 'git:init',
+  GIT_PUSH: 'git:push',
   LATEST: 'latest',
-  PUSH: 'push',
   YES: 'yes',
   YES_DEFAULT: 'yes-defaults'
 };
@@ -36,9 +37,18 @@ module.exports = class extends Generator {
   //     "xo": "^0.17.1"
   //   }
   // }
-  get _remoteUrl() {
+
+  get _gitRemote() {
+    if (this._authorModule) {
+      return `https://github.com/${this._authorModule}`;
+    }
+
+    return null;
+  }
+
+  get _authorModule() {
     if (this.answers.githubUsername && this.answers.moduleName) {
-      return `https://github.com/${this.answers.githubUsername}/${this.answers.moduleName}`;
+      return `${this.answers.githubUsername}/${this.answers.moduleName}`;
     }
 
     return null;
@@ -61,21 +71,14 @@ module.exports = class extends Generator {
       type: Boolean
     });
 
-    this.option(OPTIONS.INIT_GIT, {
+    this.option(OPTIONS.GIT_INIT, {
       alias: 'g',
       default: true,
-      description: `Init git repository`,
+      description: `Init git repository and make initial commit`,
       type: Boolean
     });
 
-    this.option(OPTIONS.COMMIT, {
-      alias: 'c',
-      default: true,
-      description: `Make initial commit`,
-      type: Boolean
-    });
-
-    this.option(OPTIONS.PUSH, {
+    this.option(OPTIONS.GIT_PUSH, {
       alias: 'p',
       default: false,
       description: `Push commit`,
@@ -141,20 +144,20 @@ module.exports = class extends Generator {
     });
 
     if (which.sync('git')) {
-      if (this.options[OPTIONS.INIT_GIT]) {
+      if (this.options[OPTIONS.GIT_INIT]) {
         this.spawnCommandSync('git', ['init']);
+        this.spawnCommandSync('git', ['add', '.']);
+        this.spawnCommandSync('git', ['commit', '-m', 'Initial']);
 
-        if (this.options[OPTIONS.COMMIT]) {
-          this.spawnCommandSync('git', ['add', '.']);
-          this.spawnCommandSync('git', ['commit', '-m', 'Initial']);
-
-          const githubRepo = this._remoteUrl;
-
-          if (this.options[OPTIONS.PUSH] && githubRepo) {
-            this.spawnCommandSync('git', ['remote', 'add', 'origin', githubRepo]);
-            this.spawnCommand('git', ['push', '-u', 'origin', 'master']);
-          }
+        if (this.options[OPTIONS.GIT_PUSH]) {
+          this._isRepoExists(isExists => {
+            if (isExists) {
+              this.spawnCommandSync('git', ['remote', 'add', 'origin', this._gitRemote]);
+              this.spawnCommand('git', ['push', '-u', 'origin', 'master']);
+            }
+          });
         }
+
       }
     }
     // if git is available
@@ -168,6 +171,19 @@ module.exports = class extends Generator {
 
   // Lifecycle hook
   // end() {}
+
+  _isRepoExists(cb) {
+    const options = {
+      headers: {
+        'User-Agent': 'Awesome-Octocat-App'
+      },
+      host: 'api.github.com',
+      path: `/repos/${this._authorModule}`,
+      protocol: 'https:'
+    };
+
+    https.get(options, res => cb(res.statusCode === 200));
+  }
 
   /**
    *
