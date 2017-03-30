@@ -1,7 +1,7 @@
 {
-  "name": "generator-es6-module-boilerplate",
+  "name": "generator-es-next",
   "version": "1.0.0-beta.2",
-  "description": "ES6 module generator for browser and nodejs",
+  "description": "Rich featured ES6 module generator for browser and nodejs",
   "license": "MIT",
   "repository": "likerRr/es6-module-boilerplate",
   "author": "Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerRr.ru)",
@@ -16,6 +16,7 @@
   "browser": "dist/bundle.js",
   "main": "index.js",
   "keywords": [
+    "yeoman-generator",
     "es6",
     "boilerplate",
     "browser",

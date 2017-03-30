@@ -4,8 +4,8 @@ Modern, ready to use, setup-free ES6 module boilerplate for browser.
 * `ES6` code anywhere: sources, tests, configs
 * Transpilation with `babel`
 * Bundling with `webpack 2`
-* Unit tests with `ava` (think about jasmine)
-* `npm` as task runner
+* Unit tests with `ava` (think about jest)
+* `npm` as a task runner
 * Linting with `XO`
 * Continuous integration with `Travis`
 * Code coverage and online reports via `codecov.io`
