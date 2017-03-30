@@ -6,7 +6,6 @@ const which = require('which');
 const https = require('https');
 
 const OPTIONS = {
-  // COMMIT: 'commit',
   GIT_INIT: 'git:init',
   GIT_PUSH: 'git:push',
   LATEST: 'latest',
@@ -23,21 +22,6 @@ const OPTIONS = {
 // };
 
 module.exports = class extends Generator {
-  // get devDependencies() {
-  //   // TODO add option to install latest versions or fixed
-  //   return {
-  //     "ava": "^0.18.2",
-  //     "babel-loader": "^6.4.0",
-  //     "babel-plugin-istanbul": "^4.0.0",
-  //     "babel-preset-env": "^1.2.1",
-  //     "babel-register": "^6.24.0",
-  //     "codecov": "^2.0.1",
-  //     "nyc": "^10.1.2",
-  //     "webpack": "2.2.1",
-  //     "xo": "^0.17.1"
-  //   }
-  // }
-
   get _gitRemote() {
     if (this._authorModule) {
       return `https://github.com/${this._authorModule}`;
@@ -151,10 +135,12 @@ module.exports = class extends Generator {
 
         if (this.options[OPTIONS.GIT_PUSH]) {
           this._isRepoExists(isExists => {
-            if (isExists) {
-              this.spawnCommandSync('git', ['remote', 'add', 'origin', this._gitRemote]);
-              this.spawnCommand('git', ['push', '-u', 'origin', 'master']);
+            if (!isExists) {
+              return console.log(`Remote url not found`)
             }
+
+            this.spawnCommandSync('git', ['remote', 'add', 'origin', this._gitRemote]);
+            this.spawnCommand('git', ['push', '-u', 'origin', 'master']);
           });
         }
 
@@ -272,11 +258,9 @@ module.exports = class extends Generator {
     const githubUsername = config.githubUsername || null;
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
-    // const gitRemote = githubUsername && `${githubUsername}/${moduleName}`;
 
     return {
       name, email, website, moduleName, moduleDescription, githubUsername, camelModuleName, humanModuleName
-      // gitRemote
     };
   }
 

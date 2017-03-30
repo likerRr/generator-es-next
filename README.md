@@ -14,50 +14,8 @@ Modern, ready to use, setup-free ES6 module boilerplate for browser.
 
 ## Install
 
-Clone and setup repository first
+TBD
 
-```bash
-$ git clone https://github.com/likerRr/es6-module-boilerplate your_module_name
-$ cd your_module_name
-$ rm -rf .git
-$ git init
-$ git remote add origin https://github.com/your_name/your_module_name
-```
-
-Fill in configuration fields in `install` and run:
-
-```bash
-# for linux users
-  $ ./install
-
-# for others
-  $ node install
-
-# finalize first run
-  $ npm test
-  $ git add .
-  $ git commit -m "initial"
-  # if remote branch exists then get it and track it
-    $ git fetch
-    $ git branch -u origin/master
-  # $ git push
-  # if remote branch does NOT exist then specify it with the first push
-  # $ git push -u origin master
-```
-
-```javascript
-// example config
-const settings = {
-  name: 'Alexey Lizurchik',
-  email: 'al.lizurchik@gmail.com',
-  website: 'http://likerrr.ru',
-
-  moduleName: 'my-module',
-  camelModuleName: 'myModule',
-  moduleDescription: 'Very nice module',
-  githubUsername: 'likerRr',
-};
-```
 ## Integration with 3rd party services
 
 ### Travis
