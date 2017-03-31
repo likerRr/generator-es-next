@@ -2,9 +2,9 @@ Modern, ready to use, setup-free ES6 (and above) module generator for browsers a
  
 ### Features
 * `ES6` code anywhere: sources, tests, configs
-* Transpilation with `babel` *(TBD typescript as alternative)*
+* Transpilation with `babel`
 * Bundling with `webpack 2`
-* Unit tests with `ava` *(TBD `jest` as alternative)*
+* Unit tests with `ava`
 * `npm` as a task runner
 * Linting with `XO`
 * Continuous integration with `Travis`
@@ -70,3 +70,17 @@ Go to [codecov](https://codecov.io) and authorize your app. Now after every trav
 In order to use  reports manually (without help of travis), use `npm run coverage` to generate report 
 and `npm run coverage:report -- -t :repository-token` to upload it. Find `:repository-token` on the project's 
 page at [codecov](https://codecov.io).
+
+## TODO
+
+General:
+
+* [ ] Add tests
+* [ ] Add nodejs generator
+
+Generators:
+
+* [ ] Optional cli support
+* [ ] Optional `typescript` as transpiler
+* [ ] Optional `jest` as testing framework
+* [ ] [Offline](https://github.com/NekR/offline-plugin) support for browser environment
