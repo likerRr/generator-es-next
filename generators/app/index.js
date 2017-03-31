@@ -263,7 +263,9 @@ module.exports = class extends Generator {
   _initGithubUsername() {
     if (!this.defaultAnswers.githubUsername) {
       return this.user.github.username()
-        .then(name => this.defaultAnswers.githubUsername = name);
+        // If no username, then return null
+        .catch(() => null)
+        .then(name => this.defaultAnswers.githubUsername = name)
     }
 
     return Promise.resolve(this.defaultAnswers.githubUsername);
