@@ -1,6 +1,10 @@
+const https = require('https');
+
 module.exports = {
   camelize,
-  humanize
+  humanize,
+  objValues,
+  isRepoExists
   // combineFilters
 };
 
@@ -28,6 +32,33 @@ function humanize(str) {
     .split(/[-_\s]+/)
     .map(txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
     .join(' ');
+}
+
+/**
+ * Returns array of object's values
+ * @param obj
+ * @return {Array}
+ */
+function objValues(obj) {
+  return Object.keys(obj).map(key => obj[key]);
+}
+
+/**
+ * Checks if author/module repo exists on github
+ * @param repo
+ * @param cb
+ */
+function isRepoExists(repo, cb) {
+  const options = {
+    headers: {
+      'User-Agent': 'Awesome-Octocat-App'
+    },
+    host: 'api.github.com',
+    path: `/repos/${repo}`,
+    protocol: 'https:'
+  };
+
+  https.get(options, res => cb(res.statusCode === 200));
 }
 
 /*

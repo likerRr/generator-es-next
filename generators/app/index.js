@@ -3,7 +3,6 @@ const path = require('path');
 const utils = require('./utils');
 const prompts = require('./prompts');
 const which = require('which');
-const https = require('https');
 
 const OPTIONS = {
   GIT_INIT: 'git-init',
@@ -27,21 +26,6 @@ const TEMPLATES = {
   TEST: 'test.js',
   WEBPACK: 'webpack.config.babel.js',
   YARN: 'yarn.lock'
-};
-
-const objValues = obj => Object.keys(obj).map(key => obj[key]);
-
-const isRepoExists = (repo, cb) => {
-  const options = {
-    headers: {
-      'User-Agent': 'Awesome-Octocat-App'
-    },
-    host: 'api.github.com',
-    path: `/repos/${repo}`,
-    protocol: 'https:'
-  };
-
-  https.get(options, res => cb(res.statusCode === 200));
 };
 
 module.exports = class extends Generator {
@@ -153,11 +137,11 @@ module.exports = class extends Generator {
     if (which.sync('git')) {
       if (this.options[OPTIONS.GIT_INIT]) {
         this.spawnCommandSync('git', ['init']);
-        this.spawnCommandSync('git', ['add'].concat(objValues(TEMPLATES)));
+        this.spawnCommandSync('git', ['add'].concat(utils.objValues(TEMPLATES)));
         this.spawnCommandSync('git', ['commit', '-m', 'Initial']);
 
         if (this.options[OPTIONS.GIT_PUSH]) {
-          isRepoExists(this._authorModule, isExists => {
+          utils.isRepoExists(this._authorModule, isExists => {
             if (!isExists) {
               return this.log(`Remote url not found`)
             }
