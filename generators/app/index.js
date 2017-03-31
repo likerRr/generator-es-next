@@ -1,8 +1,8 @@
-const Generator = require('yeoman-generator');
 const path = require('path');
+const Generator = require('yeoman-generator');
+const which = require('which');
 const utils = require('./utils');
 const prompts = require('./prompts');
-const which = require('which');
 
 const OPTIONS = {
   GIT_INIT: 'git-init',
