@@ -1,19 +1,19 @@
 {
   "name": "generator-es-next",
   "version": "1.0.0-rc.3",
-  "description": "Rich featured ES6 module generator for browser and nodejs",
+  "description": "Feature-rich ES6 module generator for browser and nodejs",
   "license": "MIT",
   "repository": "likerRr/generator-es-next",
   "author": "Alexey Lizurchik <al.lizurchik@gmail.com> (http://likerRr.ru)",
   "engines": {
     "node": ">=6"
   },
-  "man": "./README.md",
+  "man": "README.md",
   "scripts": {},
   "files": [
     "generators"
   ],
-  "main": "./generators/app/index.js",
+  "main": "generators/app/index.js",
   "keywords": [
     "yeoman-generator",
     "es6",
