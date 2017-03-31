@@ -6,20 +6,43 @@ const which = require('which');
 const https = require('https');
 
 const OPTIONS = {
-  GIT_INIT: 'git:init',
-  GIT_PUSH: 'git:push',
+  GIT_INIT: 'git-init',
+  GIT_PUSH: 'git-push',
   LATEST: 'latest',
   YES: 'yes',
   YES_DEFAULT: 'yes-defaults'
 };
 
-// TODO replace file names with map
-// const TEMPLATES = {
-//   README: {
-//     name: 'readme.md',
-//     placeholders: []
-//   }
-// };
+const TEMPLATES = {
+  BABELRC: '.babelrc',
+  EDITORCONFIG: '.editorconfig',
+  GIT_ATTRIBUTES: '.gitattributes',
+  GIT_IGNORE: '.gitignore',
+  TRAVIS: '.travis.yml',
+
+  INDEX: 'index.js',
+  LICENSE: 'LICENSE',
+  PACKAGE: 'package.json',
+  README: 'README.md',
+  TEST: 'test.js',
+  WEBPACK: 'webpack.config.babel.js',
+  YARN: 'yarn.lock'
+};
+
+const objValues = obj => Object.keys(obj).map(key => obj[key]);
+
+const isRepoExists = (repo, cb) => {
+  const options = {
+    headers: {
+      'User-Agent': 'Awesome-Octocat-App'
+    },
+    host: 'api.github.com',
+    path: `/repos/${repo}`,
+    protocol: 'https:'
+  };
+
+  https.get(options, res => cb(res.statusCode === 200));
+};
 
 module.exports = class extends Generator {
   get _gitRemote() {
@@ -97,11 +120,11 @@ module.exports = class extends Generator {
 
   // Lifecycle hook
   configuring() {
-    this._fastCopy('.babelrc');
-    this._fastCopy('.editorconfig');
-    this._fastCopy('.gitattributes');
-    this._fastCopy('.gitignore');
-    this._fastCopy('.travis.yml');
+    this._fastCopy(TEMPLATES.BABELRC);
+    this._fastCopy(TEMPLATES.EDITORCONFIG);
+    this._fastCopy(TEMPLATES.GIT_ATTRIBUTES);
+    this._fastCopy(TEMPLATES.GIT_IGNORE);
+    this._fastCopy(TEMPLATES.TRAVIS);
   }
 
   // Lifecycle hook
@@ -109,13 +132,13 @@ module.exports = class extends Generator {
 
   // Lifecycle hook
   writing() {
-    this._fastCopy('index.js');
-    this._fastCopy('LICENSE', this.answers);
-    this._fastCopy('package.json', this.answers);
-    this._fastCopy('README.md', this.answers);
-    this._fastCopy('test.js');
-    this._fastCopy('webpack.config.babel.js');
-    this._fastCopy('yarn.lock');
+    this._fastCopy(TEMPLATES.INDEX);
+    this._fastCopy(TEMPLATES.LICENSE, this.answers);
+    this._fastCopy(TEMPLATES.PACKAGE, this.answers);
+    this._fastCopy(TEMPLATES.README, this.answers);
+    this._fastCopy(TEMPLATES.TEST);
+    this._fastCopy(TEMPLATES.WEBPACK);
+    this._fastCopy(TEMPLATES.YARN);
   }
 
   // Lifecycle hook
@@ -130,13 +153,13 @@ module.exports = class extends Generator {
     if (which.sync('git')) {
       if (this.options[OPTIONS.GIT_INIT]) {
         this.spawnCommandSync('git', ['init']);
-        this.spawnCommandSync('git', ['add', '.']);
+        this.spawnCommandSync('git', ['add'].concat(objValues(TEMPLATES)));
         this.spawnCommandSync('git', ['commit', '-m', 'Initial']);
 
         if (this.options[OPTIONS.GIT_PUSH]) {
-          this._isRepoExists(isExists => {
+          isRepoExists(this._authorModule, isExists => {
             if (!isExists) {
-              return console.log(`Remote url not found`)
+              return this.log(`Remote url not found`)
             }
 
             this.spawnCommandSync('git', ['remote', 'add', 'origin', this._gitRemote]);
@@ -146,30 +169,10 @@ module.exports = class extends Generator {
 
       }
     }
-    // if git is available
-    // init git
-
-    // make commit
-
-    // if github repo exists && user agreed
-    // push
   }
 
   // Lifecycle hook
   // end() {}
-
-  _isRepoExists(cb) {
-    const options = {
-      headers: {
-        'User-Agent': 'Awesome-Octocat-App'
-      },
-      host: 'api.github.com',
-      path: `/repos/${this._authorModule}`,
-      protocol: 'https:'
-    };
-
-    https.get(options, res => cb(res.statusCode === 200));
-  }
 
   /**
    *

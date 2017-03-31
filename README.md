@@ -1,10 +1,10 @@
-Modern, ready to use, setup-free ES6 module boilerplate for browser.
+Modern, ready to use, setup-free ES6 (and above) module generator for browsers and node *(in development)*.
  
 ### Features
 * `ES6` code anywhere: sources, tests, configs
-* Transpilation with `babel`
+* Transpilation with `babel` *(TBD typescript as alternative)*
 * Bundling with `webpack 2`
-* Unit tests with `ava` (think about jest)
+* Unit tests with `ava` *(TBD `jest` as alternative)*
 * `npm` as a task runner
 * Linting with `XO`
 * Continuous integration with `Travis`
@@ -14,9 +14,33 @@ Modern, ready to use, setup-free ES6 module boilerplate for browser.
 
 ## Install
 
-TBD
+The boilerplate is a [yeoman](http://yeoman.io) generator, what means you need install it at first and then the 
+boilerplate itself:
+
+```bash
+npm i -g yo
+npm i -g generator-es-next
+```
+
+To run boilerplate simply run it in the empty folder.
+
+```bash
+mkdir example-module && cd example-module
+yo es-next
+```
+
+Then you have to answer several questions and the app will be generated.
+
+To review all the available options, run the generator with `-h` flag:
+
+```bash
+yo es-next -h
+```
 
 ## Integration with 3rd party services
+
+Generated app is set up to work with several 3rd party service. You just need to authorize your app on them. Read below
+for further instructions.
 
 ### Travis
 
