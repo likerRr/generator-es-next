@@ -1,3 +1,5 @@
+[![Build Status](https://img.shields.io/travis/likerRr/generator-es6-next/master.svg)](https://travis-ci.org/likerRr/generator-es6-next)
+
 Modern, ready to use, setup-free ES6 (and above) module generator for browsers and node *(in development)*.
  
 ### Features
