@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 setup_git() {
   git config --global user.email "al.lizurchik@gmail.com"
