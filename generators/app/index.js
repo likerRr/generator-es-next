@@ -48,7 +48,7 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
 
-    this.option('yes-default', {
+    this.option(OPTIONS.YES_DEFAULT, {
       alias: 'd',
       default: false,
       description: `Ask only questions which don't have default or saved answer`,
@@ -82,14 +82,14 @@ module.exports = class extends Generator {
       description: `Install latest versions of dependencies. (!) Correct work is not guaranteed`,
       type: Boolean
     });
-
-    this.storedPrompt = this.config.get('promptValues') || {};
-    this.defaultAnswers = this._getDefaultAnswers(this.storedPrompt);
-    this.answers = {};
   }
 
   // Lifecycle hook
   initializing() {
+    this.storedPrompt = this.config.get('promptValues') || {};
+    this.defaultAnswers = this._getDefaultAnswers(this.storedPrompt);
+    this.answers = {};
+
     return this._beforeInit()
       .then(() => this._afterInit());
   }
@@ -232,17 +232,17 @@ module.exports = class extends Generator {
 
   /**
    * Returns merged map of stored and default answers
-   * @param config
+   * @param stored
    * @return {{name: *, email: *, website: null, moduleName: *, moduleDescription: *, githubUsername: null, camelModuleName: string, humanModuleName: string}}
    * @private
    */
-  _getDefaultAnswers(config) {
-    const name = config.name || this.user.git.name();
-    const email = config.email || this.user.git.email();
-    const website = config.website || null;
+  _getDefaultAnswers(stored) {
+    const name = stored.name || this.user.git.name();
+    const email = stored.email || this.user.git.email();
+    const website = stored.website || null;
     const moduleName = path.basename(process.cwd());
     const moduleDescription = null;
-    const githubUsername = config.githubUsername || null;
+    const githubUsername = stored.githubUsername || null;
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
 
@@ -262,8 +262,14 @@ module.exports = class extends Generator {
 
   _initGithubUsername() {
     if (!this.defaultAnswers.githubUsername) {
-      return this.user.github.username()
-        .then(name => this.defaultAnswers.githubUsername = name);
+      try {
+        return this.user.github.username()
+          // If no username, then return null
+          .catch(() => null)
+          .then(name => this.defaultAnswers.githubUsername = name)
+      } catch (e) {
+        return Promise.resolve(null);
+      }
     }
 
     return Promise.resolve(this.defaultAnswers.githubUsername);
