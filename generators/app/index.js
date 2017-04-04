@@ -258,7 +258,7 @@ module.exports = class extends Generator {
    */
   _beforeInit() {
     return this._initGithubUsername()
-      .then(un => this.log(un));
+      .then(un => console.log(un));
   }
 
   _initGithubUsername() {
