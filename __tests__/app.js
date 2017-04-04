@@ -16,12 +16,11 @@ const prompts = {
   githubUsername: 'likerRr'
 };
 
-let moduleName = prompts.moduleName;
-let humanName = gUtils.humanize(moduleName);
-let camelName = gUtils.camelize(moduleName);
-
 describe('es-next:app', () => {
   let tmpDir;
+  let moduleName = prompts.moduleName;
+  let humanName = gUtils.humanize(moduleName);
+  let camelName = gUtils.camelize(moduleName);
 
   beforeAll(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
@@ -76,6 +75,9 @@ describe('es-next:app -d', () => {
   let tmpDir;
   let gitName = '';
   let gitEmail = '';
+  let moduleName = '';
+  let humanName = '';
+  let camelName = '';
 
   if (which.sync('git')) {
     gitName = shell.exec('git config --get user.name', {silent: true}).stdout.trim();
@@ -84,7 +86,12 @@ describe('es-next:app -d', () => {
 
   beforeAll(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
-      .inTmpDir(dir => tmpDir = dir)
+      .inTmpDir(dir => {
+        tmpDir = dir;
+        moduleName = path.basename(tmpDir);
+        humanName = gUtils.humanize(moduleName);
+        camelName = gUtils.camelize(moduleName);
+      })
       .withPrompts({
         // website can't be taken dynamically, it should be prompted
         website: prompts.website,
@@ -93,9 +100,6 @@ describe('es-next:app -d', () => {
         // this can't be tested dynamically since it tries to find github user by git's email, so it would be more
         // stable to use direct user name
         githubUsername: prompts.githubUsername,
-        // use defined module name and it's camel and human versions instead of generated from path name because
-        // it's more reliable
-        moduleName,
       })
       .withOptions({
         d: true
@@ -147,6 +151,9 @@ describe('es-next:app -d', () => {
 
 describe('es-next:app -y', () => {
   let tmpDir;
+  let moduleName = '';
+  let humanName = '';
+  let camelName = '';
 
   function mockContext(context) {
     context.user.git.name = () => prompts.name;
@@ -160,6 +167,8 @@ describe('es-next:app -y', () => {
       .inTmpDir(dir => {
         tmpDir = dir;
         moduleName = path.basename(tmpDir);
+        humanName = gUtils.humanize(moduleName);
+        camelName = gUtils.camelize(moduleName);
       })
       .withOptions({
         y: true
