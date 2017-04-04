@@ -82,14 +82,14 @@ module.exports = class extends Generator {
       description: `Install latest versions of dependencies. (!) Correct work is not guaranteed`,
       type: Boolean
     });
-
-    this.storedPrompt = this.config.get('promptValues') || {};
-    this.defaultAnswers = this._getDefaultAnswers(this.storedPrompt);
-    this.answers = {};
   }
 
   // Lifecycle hook
   initializing() {
+    this.storedPrompt = this.config.get('promptValues') || {};
+    this.defaultAnswers = this._getDefaultAnswers(this.storedPrompt);
+    this.answers = {};
+
     return this._beforeInit()
       .then(() => this._afterInit());
   }
