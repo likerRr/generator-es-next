@@ -6,4 +6,4 @@ install:
 script:
   - npm test
 before_script:
-  - ./.travis/git.sh
+  - .travis/git.sh
