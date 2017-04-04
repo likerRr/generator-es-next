@@ -7,4 +7,4 @@ install:
 script:
   - npm test
 before_script:
-  - .travis/git.sh
+  - chmod +x .travis/git.sh
