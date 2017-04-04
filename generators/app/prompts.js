@@ -74,6 +74,18 @@ module.exports = generator => {
     type: 'input'
   };
 
+  prompts.askTestingTools = {
+    default: generator.defaultAnswers.testingTools,
+    message: `Which testing tool you want to setup?`,
+    name: 'testingTools',
+    store: true,
+    type: 'list',
+    choices: [
+      // 'jest',
+      'ava'
+    ]
+  };
+
   // prompts.askGitRemote = {
   //   default: session => session.githubUsername && `https://github.com/${session.githubUsername}/${session.moduleName}`,
   //   filter: trimFilter,
@@ -90,7 +102,8 @@ module.exports = generator => {
     prompts.askCamelModuleName,
     prompts.askHumanModuleName,
     prompts.askDescription,
-    prompts.askGHUsername
+    prompts.askGHUsername,
+    prompts.askTestingTools
     // prompts.askGitRemote
   ];
 

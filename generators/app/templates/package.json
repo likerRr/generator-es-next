@@ -14,9 +14,7 @@
     "coverage": "nyc report --reporter=text-lcov",
     "coverage:report": "npm run coverage | codecov",
     "lint": "xo",
-    "start": "webpack --watch",
-    "test": "nyc ava",
-    "test:watch": "npm run test -- -watch"
+    "start": "webpack --watch"
   },
   "files": [
     "index.js"
@@ -32,7 +30,6 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "ava": "^0.18.2",
     "babel-loader": "^6.4.0",
     "babel-plugin-istanbul": "^4.0.0",
     "babel-preset-env": "^1.2.1",
@@ -46,11 +43,6 @@
     "esnext": true,
     "semicolon": true,
     "space": 2
-  },
-  "ava": {
-    "require": [
-      "babel-register"
-    ]
   },
   "nyc": {
     "include": [

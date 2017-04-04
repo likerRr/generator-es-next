@@ -124,9 +124,15 @@ module.exports = class extends Generator {
     this._fastCopy(TEMPLATES.LICENSE, this.answers);
     this._fastCopy(TEMPLATES.PACKAGE, this.answers);
     this._fastCopy(TEMPLATES.README, this.answers);
-    this._fastCopy(TEMPLATES.TEST);
     this._fastCopy(TEMPLATES.WEBPACK);
     this._fastCopy(TEMPLATES.YARN);
+
+    if (this.answers.testingTools === 'ava') {
+      const avaSetup = require('./setup/ava');
+
+      this.fs.extendJSON(this.destinationPath(TEMPLATES.PACKAGE), avaSetup.packageJson);
+      this.fs.write(this.destinationPath(TEMPLATES.TEST), avaSetup.test);
+    }
   }
 
   // Lifecycle hook
@@ -251,9 +257,10 @@ module.exports = class extends Generator {
     const githubUsername = stored.githubUsername || null;
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
+    const testingTools = stored.testingTools || 0;
 
     return {
-      name, email, website, moduleName, moduleDescription, githubUsername, camelModuleName, humanModuleName
+      name, email, website, moduleName, moduleDescription, githubUsername, camelModuleName, humanModuleName, testingTools
     };
   }
 
