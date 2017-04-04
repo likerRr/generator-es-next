@@ -4,7 +4,8 @@ node_js:
   - '6'
 install:
   - npm install
-script:
-  - npm test
 before_script:
   - chmod +x .travis/git.sh
+script:
+  - .travis/git.sh
+  - npm test
