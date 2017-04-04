@@ -45,6 +45,10 @@ module.exports = class extends Generator {
     return null;
   }
 
+  get _packageManager() {
+    return which.sync('yarn') ? 'yarn' : 'npm';
+  }
+
   constructor(args, opts) {
     super(args, opts);
 
@@ -156,7 +160,9 @@ module.exports = class extends Generator {
   }
 
   // Lifecycle hook
-  // end() {}
+  end() {
+    this.spawnCommand(this._packageManager, ['test']);
+  }
 
   /**
    *
