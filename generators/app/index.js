@@ -232,17 +232,17 @@ module.exports = class extends Generator {
 
   /**
    * Returns merged map of stored and default answers
-   * @param config
+   * @param stored
    * @return {{name: *, email: *, website: null, moduleName: *, moduleDescription: *, githubUsername: null, camelModuleName: string, humanModuleName: string}}
    * @private
    */
-  _getDefaultAnswers(config) {
-    const name = config.name || this.user.git.name();
-    const email = config.email || this.user.git.email();
-    const website = config.website || null;
+  _getDefaultAnswers(stored) {
+    const name = stored.name || this.user.git.name();
+    const email = stored.email || this.user.git.email();
+    const website = stored.website || null;
     const moduleName = path.basename(process.cwd());
     const moduleDescription = null;
-    const githubUsername = config.githubUsername || null;
+    const githubUsername = stored.githubUsername || null;
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
 
