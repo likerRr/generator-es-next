@@ -48,7 +48,7 @@ module.exports = class extends Generator {
   constructor(args, opts) {
     super(args, opts);
 
-    this.option('yes-default', {
+    this.option(OPTIONS.YES_DEFAULT, {
       alias: 'd',
       default: false,
       description: `Ask only questions which don't have default or saved answer`,

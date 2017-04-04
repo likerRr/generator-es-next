@@ -38,12 +38,15 @@
   },
   "devDependencies": {
     "jest": "^19.0.2",
+    "shelljs": "^0.7.7",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
   "preferGlobal": true,
   "jest": {
     "testEnvironment": "node",
-    "testMatch": ["**/__tests__/*.js"]
+    "testMatch": [
+      "**/__tests__/*.js"
+    ]
   }
 }
