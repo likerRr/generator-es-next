@@ -160,7 +160,6 @@ module.exports = class extends Generator {
             this.spawnCommand('git', ['push', '-u', 'origin', 'master']);
           });
         }
-
       }
     }
   }
