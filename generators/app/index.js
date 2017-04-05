@@ -168,7 +168,7 @@ module.exports = class extends Generator {
   end() {
     // In test environment files are not copied and dependencies are not installed
     if (process.env.NODE_ENV !== 'test') {
-      this.spawnCommand(this._packageManager, ['test']);
+      this.spawnCommand(this._packageManager, ['run', 'coverage:collect']);
     }
   }
 

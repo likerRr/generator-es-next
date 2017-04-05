@@ -11,11 +11,10 @@
   "man": "./README.md",
   "scripts": {
     "build": "npm run lint && webpack -p",
-    "coverage": "nyc report --reporter=text-lcov",
     "coverage:report": "npm run coverage | codecov",
     "lint": "xo",
     "start": "webpack --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "coverage:collect": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
     "index.js"
@@ -36,7 +35,6 @@
     "babel-preset-env": "^1.2.1",
     "babel-register": "^6.24.0",
     "codecov": "^2.0.1",
-    "nyc": "^10.1.2",
     "webpack": "^2.3.2",
     "xo": "^0.18.1"
   },
@@ -44,21 +42,5 @@
     "esnext": true,
     "semicolon": true,
     "space": 2
-  },
-  "nyc": {
-    "include": [
-      "test.js"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "lines": 100,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "check-coverage": true,
-    "sourceMap": false,
-    "instrument": false
   }
 }

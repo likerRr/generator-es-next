@@ -1,1 +1,1 @@
-export default name => `Hello, ${name}`;
+export default name => `Hello from ${name}`;
