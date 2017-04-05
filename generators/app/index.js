@@ -167,7 +167,10 @@ module.exports = class extends Generator {
 
   // Lifecycle hook
   end() {
-    this.spawnCommand(this._packageManager, ['test']);
+    // In test environment files are not copied and dependencies are not installed
+    if (process.env.NODE_ENV !== 'test') {
+      this.spawnCommand(this._packageManager, ['test']);
+    }
   }
 
   /**
@@ -257,7 +260,7 @@ module.exports = class extends Generator {
     const githubUsername = stored.githubUsername || null;
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
-    const testingTools = stored.testingTools || 0;
+    const testingTools = stored.testingTools || 'ava';
 
     return {
       name, email, website, moduleName, moduleDescription, githubUsername, camelModuleName, humanModuleName, testingTools

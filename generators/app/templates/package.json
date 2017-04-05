@@ -14,7 +14,8 @@
     "coverage": "nyc report --reporter=text-lcov",
     "coverage:report": "npm run coverage | codecov",
     "lint": "xo",
-    "start": "webpack --watch"
+    "start": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
     "index.js"
