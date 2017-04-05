@@ -127,11 +127,11 @@ module.exports = class extends Generator {
     this._fastCopy(TEMPLATES.WEBPACK);
     this._fastCopy(TEMPLATES.YARN);
 
-    if (this.answers.testingTools === 'ava') {
-      const avaSetup = require('./setup/ava');
+    if (this.answers.testingTools) {
+      const testSetup = require(`./setup/${this.answers.testingTools}`);
 
-      this.fs.extendJSON(this.destinationPath(TEMPLATES.PACKAGE), avaSetup.packageJson);
-      this.fs.write(this.destinationPath(TEMPLATES.TEST), avaSetup.test);
+      this.fs.extendJSON(this.destinationPath(TEMPLATES.PACKAGE), testSetup.packageJson);
+      this.fs.write(this.destinationPath(TEMPLATES.TEST), testSetup.test);
     }
   }
 
@@ -168,7 +168,7 @@ module.exports = class extends Generator {
   end() {
     // In test environment files are not copied and dependencies are not installed
     if (process.env.NODE_ENV !== 'test') {
-      this.spawnCommand(this._packageManager, ['run', 'coverage:collect']);
+      this.spawnCommand(this._packageManager, ['test']);
     }
   }
 
@@ -259,7 +259,7 @@ module.exports = class extends Generator {
     const githubUsername = stored.githubUsername || null;
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
-    const testingTools = stored.testingTools || 'ava';
+    const testingTools = stored.testingTools || 'jest';
 
     return {
       name, email, website, moduleName, moduleDescription, githubUsername, camelModuleName, humanModuleName, testingTools

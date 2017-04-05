@@ -217,3 +217,57 @@ describe('es-next:app -y', () => {
     assert.fileContent('README.md', body);
   });
 });
+
+describe('es-next:app testingTools=ava', () => {
+  let tmpDir;
+
+  beforeAll(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .inTmpDir(dir => tmpDir = dir)
+      .withPrompts({
+        testingTools: 'ava'
+      });
+  });
+
+  it('creates files', () => {
+    assert.file([
+      'test.js',
+      'package.json'
+    ]);
+  });
+
+  it('patches package.json', () => {
+    assert.jsonFileContent('package.json', require('../generators/app/setup/ava').packageJson);
+  });
+
+  it('creates test file', () => {
+    assert.fileContent('test.js', require('../generators/app/setup/ava').test);
+  });
+});
+
+describe('es-next:app testingTools=jest -y', () => {
+  let tmpDir;
+
+  beforeAll(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .inTmpDir(dir => tmpDir = dir)
+      .withOptions({
+        y: true
+      });
+  });
+
+  it('creates files', () => {
+    assert.file([
+      'test.js',
+      'package.json'
+    ]);
+  });
+
+  it('patches package.json', () => {
+    assert.jsonFileContent('package.json', require('../generators/app/setup/jest').packageJson);
+  });
+
+  it('creates test file', () => {
+    assert.fileContent('test.js', require('../generators/app/setup/jest').test);
+  });
+});

@@ -81,7 +81,7 @@ module.exports = generator => {
     store: true,
     type: 'list',
     choices: [
-      // 'jest',
+      'jest',
       'ava'
     ]
   };
