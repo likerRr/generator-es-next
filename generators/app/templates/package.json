@@ -11,9 +11,10 @@
   "man": "./README.md",
   "scripts": {
     "build": "npm run lint && webpack -p",
-    "coverage:report": "npm run coverage | codecov",
     "lint": "xo",
     "start": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:coverage": "npm run coverage:collect && codecov",
     "coverage:collect": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [

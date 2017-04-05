@@ -11,8 +11,8 @@ const packageJson = {
   },
   "scripts": {
     "test": "ava",
-    "test:watch": "npm run test -- -watch",
-    "coverage": "nyc report --reporter=text-lcov", // Displays coverage info
+    "test:watch": "npm run test -- --watch",
+    "coverage": "nyc report --reporter=text-lcov", // Displays coverage info from collected coverage
     "coverage:collect": "nyc ava" // Runs tests and collects coverage info
   },
   "nyc": {
