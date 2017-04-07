@@ -1,0 +1,13 @@
+.babelrc
+.editorconfig
+.gitattributes
+.gitignore
+.travis.yml
+webpack.config.babel.js
+yarn.lock
+test.js
+*.spec.js
+*.test.js
+test-*.js
+test/**/*.js
+**/__tests__/**/*.js
