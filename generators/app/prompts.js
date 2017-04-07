@@ -1,5 +1,6 @@
 const utils = require('./utils');
-const trimFilter = (val) => val.trim();
+
+const trimFilter = val => val.trim();
 
 module.exports = generator => {
   const prompts = {};
@@ -86,14 +87,6 @@ module.exports = generator => {
     ]
   };
 
-  // prompts.askGitRemote = {
-  //   default: session => session.githubUsername && `https://github.com/${session.githubUsername}/${session.moduleName}`,
-  //   filter: trimFilter,
-  //   message: `Git remote url`,
-  //   name: 'gitRemote',
-  //   type: 'input'
-  // };
-
   prompts.ALL = [
     prompts.askName,
     prompts.askEmail,
@@ -104,10 +97,7 @@ module.exports = generator => {
     prompts.askDescription,
     prompts.askGHUsername,
     prompts.askTestingTools
-    // prompts.askGitRemote
   ];
 
   return prompts;
 };
-
-

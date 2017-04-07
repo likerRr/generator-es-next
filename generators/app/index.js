@@ -102,7 +102,7 @@ module.exports = class extends Generator {
   prompting() {
     return this._getAnswers()
       .then(answers => {
-        this.answers = answers
+        this.answers = answers;
       });
   }
 
@@ -153,7 +153,7 @@ module.exports = class extends Generator {
         if (this.options[OPTIONS.GIT_PUSH]) {
           utils.isRepoExists(this._authorModule, isExists => {
             if (!isExists) {
-              return this.log(`Remote url not found`)
+              return this.log(`Remote url not found`);
             }
 
             this.spawnCommandSync('git', ['remote', 'add', 'origin', this._gitRemote]);
@@ -189,14 +189,16 @@ module.exports = class extends Generator {
       devDependencies = Object.keys(packageJson.devDependencies).map(setLatest);
     }
 
-    isYarn
-      ? this.yarnInstall(dependencies)
-      : this.npmInstall(dependencies);
+    // eslint-disable-next-line no-unused-expressions
+    isYarn ?
+      this.yarnInstall(dependencies) :
+      this.npmInstall(dependencies);
 
     if (devDependencies.length > 0) {
-      isYarn
-        ? this.yarnInstall(devDependencies, {dev: true})
-        : this.npmInstall(devDependencies, {'save-dev': true});
+      // eslint-disable-next-line no-unused-expressions
+      isYarn ?
+        this.yarnInstall(devDependencies, {dev: true}) :
+        this.npmInstall(devDependencies, {'save-dev': true});
     }
   }
 
@@ -209,22 +211,22 @@ module.exports = class extends Generator {
     return new Promise((resolve, reject) => {
       try {
         if (this.options[OPTIONS.YES_DEFAULT]) {
-          // resolve questions that don't have default or stored answer
+          // Resolve questions that don't have default or stored answer
           const filtered = this.questions.ALL.filter(q => !this.defaultAnswers[q.name]);
 
           resolve(this.prompt(filtered).then(answers => {
-            // combine answers with defaults
+            // Combine answers with defaults
             return Object.assign({}, this.defaultAnswers, answers);
           }));
         } else if (this.options[OPTIONS.YES]) {
-          // don't ask anything, just return answers
+          // Don't ask anything, just return answers
           resolve(Object.assign({}, this.defaultAnswers));
         } else {
-          // ask all the questions
+          // Ask all the questions
           resolve(this.prompt(this.questions.ALL));
         }
-      } catch (e) {
-        reject(e);
+      } catch (err) {
+        reject(err);
       }
     });
   }
@@ -281,8 +283,8 @@ module.exports = class extends Generator {
         return this.user.github.username()
           // If no username, then return null
           .catch(() => null)
-          .then(name => this.defaultAnswers.githubUsername = name)
-      } catch (e) {
+          .then(name => this.defaultAnswers.githubUsername = name); // eslint-disable-line no-return-assign
+      } catch (err) {
         return Promise.resolve(null);
       }
     }

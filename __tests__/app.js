@@ -1,8 +1,9 @@
+/* global beforeAll, describe, it */
 'use strict';
 const path = require('path');
+const fs = require('fs');
 const helpers = require('yeoman-test');
 const assert = require('yeoman-assert');
-const fs = require('fs');
 const which = require('which');
 const shell = require('shelljs');
 const gUtils = require('../generators/app/utils');
@@ -16,15 +17,14 @@ const prompts = {
   githubUsername: 'likerRr'
 };
 
+// eslint-disable-next-line no-undef
 describe('es-next:app', () => {
-  let tmpDir;
-  let moduleName = prompts.moduleName;
-  let humanName = gUtils.humanize(moduleName);
-  let camelName = gUtils.camelize(moduleName);
+  const moduleName = prompts.moduleName;
+  const humanName = gUtils.humanize(moduleName);
+  const camelName = gUtils.camelize(moduleName);
 
   beforeAll(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
-      .inTmpDir(dir => tmpDir = dir)
       .withPrompts(Object.assign({}, prompts));
   });
 
@@ -93,13 +93,13 @@ describe('es-next:app -d', () => {
         camelName = gUtils.camelize(moduleName);
       })
       .withPrompts({
-        // website can't be taken dynamically, it should be prompted
+        // Website can't be taken dynamically, it should be prompted
         website: prompts.website,
-        // description is always prompted and never cached
+        // Description is always prompted and never cached
         moduleDescription: prompts.moduleDescription,
-        // this can't be tested dynamically since it tries to find github user by git's email, so it would be more
-        // stable to use direct user name
-        githubUsername: prompts.githubUsername,
+        // This can't be tested dynamically since it tries to find github user by git's email, so it would be more
+        // Stable to use direct user name
+        githubUsername: prompts.githubUsername
       })
       .withOptions({
         d: true
@@ -210,8 +210,8 @@ describe('es-next:app -y', () => {
 
     body = body.replace(/<%= githubUsername %>/g, prompts.githubUsername);
     body = body.replace(/<%= moduleName %>/g, moduleName);
-    body = body.replace(/<%= humanModuleName %>/g, gUtils.humanize(moduleName));
-    body = body.replace(/<%= camelModuleName %>/g, gUtils.camelize(moduleName));
+    body = body.replace(/<%= humanModuleName %>/g, humanName);
+    body = body.replace(/<%= camelModuleName %>/g, camelName);
     body = body.replace(/<%= name %>/g, prompts.name);
 
     assert.fileContent('README.md', body);
@@ -219,11 +219,8 @@ describe('es-next:app -y', () => {
 });
 
 describe('es-next:app testingTools=ava', () => {
-  let tmpDir;
-
   beforeAll(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
-      .inTmpDir(dir => tmpDir = dir)
       .withPrompts({
         testingTools: 'ava'
       });
@@ -246,11 +243,8 @@ describe('es-next:app testingTools=ava', () => {
 });
 
 describe('es-next:app testingTools=jest -y', () => {
-  let tmpDir;
-
   beforeAll(() => {
     return helpers.run(path.join(__dirname, '../generators/app'))
-      .inTmpDir(dir => tmpDir = dir)
       .withOptions({
         y: true
       });
