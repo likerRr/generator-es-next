@@ -1,4 +1,6 @@
 [![Build Status](https://img.shields.io/travis/likerRr/generator-es-next/master.svg)](https://travis-ci.org/likerRr/generator-es-next)
+[![Dependencies](https://img.shields.io/david/likerRr/generator-es-next.svg)](https://david-dm.org/likerRr/generator-es-next)
+[![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/likerRr/generator-es-next)
 
 Modern, ready to use, setup-free ES6 (and above) module generator for browsers and node *(in development)*.
  

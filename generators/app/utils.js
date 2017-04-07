@@ -5,7 +5,7 @@ module.exports = {
   humanize,
   objValues,
   isRepoExists
-  // combineFilters
+  // CombineFilters
 };
 
 /**
@@ -16,7 +16,7 @@ module.exports = {
 function camelize(str) {
   return str
     .trim()
-    // find every letter followed after the -, _ or space character and uppercases it
+    // Find every letter followed after the -, _ or space character and uppercases it
     .replace(/[-_\s]+(.)?/g, (match, c) => c ? c.toUpperCase() : '');
 }
 
@@ -28,7 +28,7 @@ function camelize(str) {
 function humanize(str) {
   return str
     .trim()
-    // split by spaces, hyphens or underscores
+    // Split by spaces, hyphens or underscores
     .split(/[-_\s]+/)
     .map(txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
     .join(' ');
@@ -61,7 +61,7 @@ function isRepoExists(repo, cb) {
   https.get(options, res => cb(res.statusCode === 200));
 }
 
-/*
+/* eslint-disable-line
 function combineFilters(filters) {
   if (!Array.isArray(filters)) {
     filters = [filters];

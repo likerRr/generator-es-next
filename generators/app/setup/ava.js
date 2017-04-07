@@ -1,36 +1,36 @@
 const packageJson = {
-  "ava": {
-    "require": [
-      "babel-register"
+  ava: {
+    require: [
+      'babel-register'
     ]
   },
-  "devDependencies": {
+  devDependencies: {
     // TODO dependencies and it's versions must be placed in separate file in order to use across the generator
-    "ava": "^0.18.2",
-    "nyc": "^10.1.2"
+    ava: '^0.18.2',
+    nyc: '^10.1.2'
   },
-  "scripts": {
-    "test": "ava",
-    "test:watch": "npm run test -- --watch",
-    "coverage": "nyc report --reporter=text-lcov", // Displays coverage info from collected coverage
-    "coverage:collect": "nyc ava" // Runs tests and collects coverage info
+  scripts: {
+    test: 'ava',
+    'test:watch': 'npm run test -- --watch',
+    coverage: 'nyc report --reporter=text-lcov', // Displays coverage info from collected coverage
+    'coverage:collect': 'nyc ava' // Runs tests and collects coverage info
   },
-  "nyc": {
-    "include": [
+  nyc: {
+    include: [
       // TODO the name should be synchronized with generated template file name(s)
-      "test.js"
+      'test.js'
     ],
-    "reporter": [
-      "lcov",
-      "text"
+    reporter: [
+      'lcov',
+      'text'
     ],
-    "lines": 100,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "check-coverage": true,
-    "sourceMap": false,
-    "instrument": false
+    lines: 100,
+    statements: 100,
+    functions: 100,
+    branches: 100,
+    'check-coverage': true,
+    sourceMap: false,
+    instrument: false
   }
 };
 

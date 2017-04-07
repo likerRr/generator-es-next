@@ -1,31 +1,31 @@
 const packageJson = {
-  "jest": {
+  jest: {
     // "testEnvironment": "node", // TODO setupable
     // "testMatch": [
     //   "**/__tests__/*.js"
     // ]
-    "coverageReporters": [
-      "lcov",
-      "text"
+    coverageReporters: [
+      'lcov',
+      'text'
     ],
-    "coverageThreshold": {
-      "global": {
-        "lines": 100,
-        "statements": 100,
-        "functions": 100,
-        "branches": 100
+    coverageThreshold: {
+      global: {
+        lines: 100,
+        statements: 100,
+        functions: 100,
+        branches: 100
       }
     }
   },
-  "devDependencies": {
+  devDependencies: {
     // TODO dependencies and it's versions must be placed in separate file in order to use across the generator
-    "jest": "^19.0.2"
+    jest: '^19.0.2'
   },
-  "scripts": {
-    "test": "jest",
-    "test:watch": "npm run test -- --watch",
-    "coverage": "npm run test -- --coverage", // Displays coverage info from collected coverage
-    "coverage:collect": "npm run coverage" // Runs tests and collects coverage info
+  scripts: {
+    test: 'jest',
+    'test:watch': 'npm run test -- --watch',
+    coverage: 'npm run test -- --coverage', // Displays coverage info from collected coverage
+    'coverage:collect': 'npm run coverage' // Runs tests and collects coverage info
   }
 };
 

@@ -10,7 +10,7 @@
   },
   "man": "README.md",
   "scripts": {
-    "test": "jest"
+    "test": "xo && jest"
   },
   "files": [
     "generators"
@@ -39,6 +39,7 @@
   "devDependencies": {
     "jest": "^19.0.2",
     "shelljs": "^0.7.7",
+    "xo": "^0.18.1",
     "yeoman-assert": "^3.0.0",
     "yeoman-test": "^1.6.0"
   },
@@ -48,5 +49,10 @@
     "testMatch": [
       "**/__tests__/*.js"
     ]
+  },
+  "xo": {
+    "esnext": true,
+    "semicolon": true,
+    "space": 2
   }
 }
