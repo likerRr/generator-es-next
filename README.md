@@ -8,13 +8,15 @@ Modern, ready to use, setup-free ES6 (and above) module generator for browsers a
 * `ES6` code anywhere: sources, tests, configs
 * Transpilation with `babel`
 * Bundling with `webpack 2`
-* Unit tests with `ava`
+* Unit tests with `jest` or `ava`
 * `npm` as a task runner
 * Linting with `XO`
 * Continuous integration with `Travis`
-* Code coverage and online reports via `codecov.io`
+* Code coverage and online reports via `Codecov`
 * Dependencies info by `David`
-* [Yarn](https://yarnpkg.com/en/) support
+* Built-in [yarn](https://yarnpkg.com/en/) support
+* Choose between `yargs`, `inquirer`, `vorpal` as cli handler
+* Clean folder structure after `npm publish`
 
 ## Install
 
