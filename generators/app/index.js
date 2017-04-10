@@ -136,7 +136,7 @@ module.exports = class extends Generator {
     }
 
     if (this.answers.supportCli) {
-      const cliSetup = require(`./setup/cliTools`)(this.answers.cliTools);
+      const cliSetup = require(`./setup/cliTools`)(this.answers.cliTools.replace('+', '-'));
 
       this.fs.extendJSON(this.destinationPath(TEMPLATES.PACKAGE), cliSetup.packageJson);
       this.fs.write(this.destinationPath(TEMPLATES.CLI), cliSetup.file);
