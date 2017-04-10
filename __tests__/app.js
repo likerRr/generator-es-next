@@ -14,7 +14,8 @@ const prompts = {
   website: 'https://example.com',
   moduleName: 'generator-es-next',
   moduleDescription: 'test',
-  githubUsername: 'likerRr'
+  githubUsername: 'likerRr',
+  supportCli: false
 };
 
 // eslint-disable-next-line no-undef
@@ -43,6 +44,7 @@ describe('es-next:app', () => {
       'webpack.config.babel.js',
       'yarn.lock'
     ]);
+    assert.noFile('cli.js');
   });
 
   it('placeholders license', () => {
@@ -265,3 +267,35 @@ describe('es-next:app testingTools=jest -y', () => {
     assert.fileContent('test.js', require('../generators/app/setup/jest').test);
   });
 });
+
+describe('es-next:app supportCli=true cliTools=native', () => testCliTools('native'));
+describe('es-next:app supportCli=true cliTools=yargs', () => testCliTools('yargs'));
+describe('es-next:app supportCli=true cliTools=inquirer', () => testCliTools('inquirer'));
+describe('es-next:app supportCli=true cliTools=vorpal', () => testCliTools('vorpal'));
+describe('es-next:app supportCli=true cliTools=meow', () => testCliTools('meow'));
+describe('es-next:app supportCli=true cliTools=yargs+inquirer', () => testCliTools('yargs-inquirer'));
+describe('es-next:app supportCli=true cliTools=yargs+vorpal', () => testCliTools('yargs-vorpal'));
+
+function testCliTools(cliTool) {
+  assert.ok(['inquirer', 'meow', 'native', 'vorpal', 'yargs', 'yargs-inquirer', 'yargs-vorpal'].includes(cliTool));
+
+  beforeAll(() => {
+    return helpers.run(path.join(__dirname, '../generators/app'))
+      .withPrompts({
+        supportCli: true,
+        cliTools: cliTool
+      });
+  });
+
+  it('creates files', () => {
+    assert.file('cli.js');
+  });
+
+  it('patches package.json', () => {
+    assert.jsonFileContent('package.json', require('../generators/app/setup/cliTools')(cliTool).packageJson);
+  });
+
+  it('creates cli file', () => {
+    assert.fileContent('cli.js', require('../generators/app/setup/cliTools')(cliTool).file);
+  });
+}
