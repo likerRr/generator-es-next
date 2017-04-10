@@ -272,7 +272,7 @@ module.exports = class extends Generator {
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
     const testingTools = stored.testingTools || 'jest';
-    const supportCli = stored.supportCli || false;
+    const supportCli = Boolean(stored.supportCli || false);
     const cliTools = stored.cliTools || 'yargs';
 
     return {
