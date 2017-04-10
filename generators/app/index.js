@@ -24,6 +24,7 @@ const TEMPLATES = {
   PACKAGE: 'package.json',
   README: 'README.md',
   TEST: 'test.js',
+  CLI: 'cli.js',
   WEBPACK: 'webpack.config.babel.js',
   YARN: 'yarn.lock'
 };
@@ -133,6 +134,13 @@ module.exports = class extends Generator {
       this.fs.extendJSON(this.destinationPath(TEMPLATES.PACKAGE), testSetup.packageJson);
       this.fs.write(this.destinationPath(TEMPLATES.TEST), testSetup.test);
     }
+
+    if (this.answers.supportCli) {
+      const cliSetup = require(`./setup/cliTools`)(this.answers.cliTools);
+
+      this.fs.extendJSON(this.destinationPath(TEMPLATES.PACKAGE), cliSetup.packageJson);
+      this.fs.write(this.destinationPath(TEMPLATES.CLI), cliSetup.file);
+    }
   }
 
   // Lifecycle hook
@@ -212,9 +220,11 @@ module.exports = class extends Generator {
       try {
         if (this.options[OPTIONS.YES_DEFAULT]) {
           // Resolve questions that don't have default or stored answer
-          const filtered = this.questions.ALL.filter(q => !this.defaultAnswers[q.name]);
+          const withoutDefaultAnswers = this.questions.ALL.filter(q => {
+            return this.defaultAnswers[q.name] === null || this.defaultAnswers[q.name] === undefined;
+          });
 
-          resolve(this.prompt(filtered).then(answers => {
+          resolve(this.prompt(withoutDefaultAnswers).then(answers => {
             // Combine answers with defaults
             return Object.assign({}, this.defaultAnswers, answers);
           }));
@@ -262,9 +272,21 @@ module.exports = class extends Generator {
     const camelModuleName = utils.camelize(moduleName);
     const humanModuleName = utils.humanize(moduleName);
     const testingTools = stored.testingTools || 'jest';
+    const supportCli = stored.supportCli || false;
+    const cliTools = stored.cliTools || 'yargs';
 
     return {
-      name, email, website, moduleName, moduleDescription, githubUsername, camelModuleName, humanModuleName, testingTools
+      name,
+      email,
+      website,
+      moduleName,
+      moduleDescription,
+      githubUsername,
+      camelModuleName,
+      humanModuleName,
+      testingTools,
+      supportCli,
+      cliTools
     };
   }
 

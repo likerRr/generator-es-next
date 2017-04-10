@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "jest": "^19.0.2",
+    "lodash.merge": "^4.6.0",
     "shelljs": "^0.7.7",
     "xo": "^0.18.1",
     "yeoman-assert": "^3.0.0",

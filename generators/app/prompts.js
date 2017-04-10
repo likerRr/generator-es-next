@@ -87,6 +87,32 @@ module.exports = generator => {
     ]
   };
 
+  prompts.supportCli = {
+    default: generator.defaultAnswers.supportCli,
+    message: `Scaffold executables (cli support)?`,
+    name: 'supportCli',
+    store: true,
+    type: 'confirm'
+  };
+
+  prompts.cliTools = {
+    default: generator.defaultAnswers.cliTools,
+    message: `Chose cli tools`,
+    name: 'cliTools',
+    store: true,
+    type: 'list',
+    choices: [
+      'native',
+      'yargs',
+      'inquirer',
+      'vorpal',
+      'meow',
+      'yargs+inquirer',
+      'yargs+vorpal'
+    ],
+    when: session => session.supportCli
+  };
+
   prompts.ALL = [
     prompts.askName,
     prompts.askEmail,
@@ -96,7 +122,9 @@ module.exports = generator => {
     prompts.askHumanModuleName,
     prompts.askDescription,
     prompts.askGHUsername,
-    prompts.askTestingTools
+    prompts.askTestingTools,
+    prompts.supportCli,
+    prompts.cliTools
   ];
 
   return prompts;
