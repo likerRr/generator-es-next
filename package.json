@@ -1,6 +1,6 @@
 {
   "name": "generator-es-next",
-  "version": "1.0.0-rc.3.1",
+  "version": "1.0.0-rc.4",
   "description": "Feature-rich ES6 module generator for browser and nodejs",
   "license": "MIT",
   "repository": "likerrr/generator-es-next",
