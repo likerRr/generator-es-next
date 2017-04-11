@@ -50,6 +50,20 @@ module.exports = class extends Generator {
     return which.sync('yarn') ? 'yarn' : 'npm';
   }
 
+  get _actualTemplates() {
+    const result = {};
+
+    for (const key in TEMPLATES) {
+      if (TEMPLATES[key] === TEMPLATES.CLI && !this.answers.supportCli) {
+        continue;
+      }
+
+      result[key] = TEMPLATES[key];
+    }
+
+    return result;
+  }
+
   constructor(args, opts) {
     super(args, opts);
 
@@ -155,7 +169,7 @@ module.exports = class extends Generator {
     if (which.sync('git')) {
       if (this.options[OPTIONS.GIT_INIT]) {
         this.spawnCommandSync('git', ['init']);
-        this.spawnCommandSync('git', ['add'].concat(utils.objValues(TEMPLATES)));
+        this.spawnCommandSync('git', ['add'].concat(utils.objValues(this._actualTemplates)));
         this.spawnCommandSync('git', ['commit', '-m', 'Initial']);
 
         if (this.options[OPTIONS.GIT_PUSH]) {
