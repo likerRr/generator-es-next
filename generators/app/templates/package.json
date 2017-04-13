@@ -15,13 +15,16 @@
     "start": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:coverage": "npm run coverage:collect && codecov",
-    "coverage:collect": "echo \"Error: no test specified\" && exit 1"
+    "coverage:collect": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "test:coverage && npm run build",
+    "prepublish": "npm run precommit"
   },
   "files": [
     "index.js"
   ],
   "browser": "dist/bundle.js",
   "main": "index.js",
+  "module": "index.js",
   "keywords": [
     "es6",
     "boilerplate",

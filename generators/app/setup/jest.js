@@ -17,9 +17,20 @@ const packageJson = {
       }
     }
   },
+  xo: {
+    overrides: [{
+      files: 'test.js', // Glob pattern could be wherever your test are
+      plugins: [
+        'jest'
+      ],
+      extends: ['plugin:jest/recommended'],
+      envs: ['jest']
+    }]
+  },
   devDependencies: {
     // TODO dependencies and it's versions must be placed in separate file in order to use across the generator
-    jest: '^19.0.2'
+    jest: '^19.0.2',
+    'eslint-plugin-jest': '^19.0.1'
   },
   scripts: {
     test: 'jest',
