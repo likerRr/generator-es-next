@@ -7,7 +7,9 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '/dist'),
-    filename: '[name].js'
+    filename: '[name].umd.js',
+    library: '<%= camelModuleName %>',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [

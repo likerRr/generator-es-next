@@ -15,14 +15,15 @@
     "start": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:coverage": "npm run coverage:collect && codecov",
-    "coverage:collect": "echo \"Error: no test specified\" && exit 1",
-    "precommit": "test:coverage && npm run build",
+    "coverage": "echo \"Error: no coverage report specified\" && exit 1",
+    "precommit": "npm run coverage && npm run build",
     "prepublish": "npm run precommit"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "dist/bundle.umd.js"
   ],
-  "browser": "dist/bundle.js",
+  "browser": "dist/bundle.umd.js",
   "main": "index.js",
   "module": "index.js",
   "keywords": [

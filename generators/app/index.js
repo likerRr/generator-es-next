@@ -139,7 +139,7 @@ module.exports = class extends Generator {
     this._fastCopy(TEMPLATES.LICENSE, this.answers);
     this._fastCopy(TEMPLATES.PACKAGE, this.answers);
     this._fastCopy(TEMPLATES.README, this.answers);
-    this._fastCopy(TEMPLATES.WEBPACK);
+    this._fastCopy(TEMPLATES.WEBPACK, this.answers);
     this._fastCopy(TEMPLATES.YARN);
 
     if (this.answers.testingTools) {
